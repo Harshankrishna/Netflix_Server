@@ -5,7 +5,6 @@ const express = require("express");
 const cors = require("cors");
 const userRoutes = require("./routes/UserRoutes");
 const mongoose = require("mongoose");
-// const CONNECTION_URL = process.env.CONNECTION_URL;
 const URL = process.env.MONGO_URL;
 
 const app = express();
@@ -18,13 +17,10 @@ app.get("/", (req, res) => {
 });
 
 mongoose
-  .connect(
-    { URL },
-    {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    }
-  )
+  .connect(URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
   .then(() => {
     console.log("DB Connetion Successfull");
   })
@@ -34,6 +30,4 @@ mongoose
 
 app.use("/api/user", userRoutes);
 
-app.listen(PORT, () => {
-  console.log("server started on port 5000");
-});
+app.listen(PORT, console.log("server started on port 5000"));
